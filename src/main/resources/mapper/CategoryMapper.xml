@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangxiang.mapper.CategoryMapper">
+    <!--定义resultMap-->
+    <!--定义Comment的resultMap-->
+    <resultMap id="CategoryResultMap" type="com.zhangxiang.model.Category">
+        <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_photo" jdbcType="VARCHAR" property="categoryPhoto" />
+    </resultMap>
+
+
+    <select id="selectAllCategories" resultMap="CategoryResultMap">
+        select *
+        from category;
+    </select>
+
+</mapper>

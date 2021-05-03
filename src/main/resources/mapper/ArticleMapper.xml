@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangxiang.mapper.ArticleMapper">
+    <!--定义resultMap-->
+    <!--定义Comment的resultMap-->
+    <resultMap id="ArticleResultMap" type="com.zhangxiang.model.Article">
+        <id column="article_id"  property="articleId" />
+        <result column="article_title"  property="articleTitle" />
+        <result column="article_photo"  property="articlePhoto" />
+        <result column="article_content"  property="articleContent" />
+        <result column="article_view_count"  property="articleViewCount" />
+        <result column="article_comment_count"  property="articleCommentCount" />
+        <result column="article_like_count"  property="articleLikeCount" />
+        <result column="article_status"  property="articleStatus" />
+        <result column="article_creation_time"  property="articleCreationTime" />
+        <result column="category_id"  property="categoryId" />
+        <result column="admin_id"  property="adminId" />
+    </resultMap>
+
+    <select id="selectAllArticles" resultMap="ArticleResultMap">
+        select *
+        from article
+    </select>
+
+    <select id="findArticle" resultMap="ArticleResultMap" parameterType="java.lang.Integer">
+        select *
+        from article
+        where article_id = #{articleId};
+    </select>
+
+    <select id="selectAllArticlesByCategory" resultMap="ArticleResultMap" parameterType="java.lang.Integer">
+        select *
+        from article
+        where category_id = #{categoryId};
+    </select>
+
+    <select id="findArticlesByTitle" resultMap="ArticleResultMap" parameterType="java.lang.String">
+        select * from article where article_title like concat('%', #{titleKeywords}, '%')
+    </select>
+
+    <select id="findArticlesByContent" resultMap="ArticleResultMap" parameterType="java.lang.String">
+        select * from article where article_title like concat('%', #{contentKeywords}, '%') or article_content like concat('%', #{contentKeywords}, '%')
+    </select>
+
+    <update id="updateById" parameterType="com.zhangxiang.model.Article">
+        update article
+        set article_title = #{articleTitle,jdbcType=VARCHAR},
+            article_photo = #{articlePhoto,jdbcType=VARCHAR},
+            article_content = #{articleContent, jdbcType=VARCHAR},
+            article_view_count = #{articleViewCount,jdbcType=INTEGER},
+            article_comment_count = #{articleCommentCount,jdbcType=INTEGER},
+            article_like_count = #{articleLikeCount,jdbcType=INTEGER},
+            article_status = #{articleStatus,jdbcType=INTEGER},
+            category_id = #{categoryId, jdbcType=INTEGER},
+            admin_id = #{adminId,jdbcType=INTEGER}
+        where
+            article_id = #{articleId,jdbcType=INTEGER}
+    </update>
+</mapper>
