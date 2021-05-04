@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     List<Category> selectAllCategories();
+
+    Category findCategoryById(Integer categoryId);
 }

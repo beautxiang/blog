@@ -25,6 +25,16 @@ public class Article {
 
     private Integer adminId;
 
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Integer getArticleId() {
         return articleId;
     }

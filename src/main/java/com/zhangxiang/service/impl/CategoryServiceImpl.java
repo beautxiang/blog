@@ -14,9 +14,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+
     @Override
     public List<Category> selectAllCategories() {
         return categoryMapper.selectAllCategories();
+    }
+
+
+    @Override
+    public Category findCategoryById(Integer categoryId) {
+        return categoryMapper.findCategoryById(categoryId);
     }
 
 }

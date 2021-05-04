@@ -4,11 +4,10 @@ import com.zhangxiang.model.Article;
 import com.zhangxiang.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -27,15 +26,18 @@ public class ArticleController {
     }
 
     @GetMapping("/articleCategory/{categoryId}")
-    public List<Article> returnArticlesByCategory(@PathVariable Integer categoryId){
+    public List<Article> returnArticlesByCategory(@PathVariable Integer categoryId) {
         return articleService.selectAllArticlesByCategory(categoryId);
     }
 
-    @GetMapping("article/search")
+    @GetMapping("、article/search")
     public List<Article> searchArticleByTitleOrContent(@RequestParam(name = "titleKeywords", required = false) String titleKeywords,
                                                        @RequestParam(name = "contentKeywords", required = false) String contentKeywords) {
-
         return articleService.findArticleByTitleOrContent(titleKeywords, contentKeywords);
     }
 
+    @PostMapping("/article/{articleId}/like")
+    public int articleLikeById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer articleId) {
+        return articleService.articleLikeById(request, response,articleId);
+    }
 }

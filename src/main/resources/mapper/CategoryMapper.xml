@@ -9,6 +9,12 @@
         <result column="category_photo" jdbcType="VARCHAR" property="categoryPhoto" />
     </resultMap>
 
+    <select id="findCategoryById" resultMap="CategoryResultMap" parameterType="java.lang.Integer">
+        select *
+        from category
+        where category_id = #{categoryId}
+
+    </select>
 
     <select id="selectAllCategories" resultMap="CategoryResultMap">
         select *
