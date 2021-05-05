@@ -20,6 +20,27 @@ public class Comment {
 
     private Date commentCreationTime;
 
+    public Comment() {
+    }
+
+    public Comment(Integer articleId, String commentPersonName, String commentPersonEmail, String commentContent, Date commentCreationTime) {
+        this.articleId = articleId;
+        this.commentPersonName = commentPersonName;
+        this.commentPersonEmail = commentPersonEmail;
+        this.commentContent = commentContent;
+        this.commentCreationTime = commentCreationTime;
+    }
+
+    public Comment(Integer commentPid, Integer articleId, String commentPersonName, String commentPersonEmail, String commentContent, String respondUser, Date commentCreationTime) {
+        this.commentPid = commentPid;
+        this.articleId = articleId;
+        this.commentPersonName = commentPersonName;
+        this.commentPersonEmail = commentPersonEmail;
+        this.commentContent = commentContent;
+        this.respondUser = respondUser;
+        this.commentCreationTime = commentCreationTime;
+    }
+
     public Integer getCommentId() {
         return commentId;
     }

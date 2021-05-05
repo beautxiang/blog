@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangxiang.mapper.MessageMapper">
+    <!--定义resultMap-->
+    <!--定义Comment的resultMap-->
+    <resultMap id="MessageResultMap" type="com.zhangxiang.model.Message">
+        <id column="message_id"  property="messageId" />
+        <result column="message_user_name"  property="messageUserName" />
+        <result column="message_user_email"  property="messageUserEmail" />
+        <result column="message_content"  property="messageContent" />
+        <result column="message_creation_time"  property="messageCreationTime" />
+    </resultMap>
+
+    <select id="selectAllMessage" resultMap="MessageResultMap">
+        select *
+        from message
+    </select>
+
+    <insert id="addMessage" parameterType="com.zhangxiang.model.Message" useGeneratedKeys="true"
+            keyProperty="messageId">
+        insert into message (message_user_name, message_user_email, message_content, message_creation_time)
+        values (#{messageUserName}, #{messageUserEmail}, #{messageContent}, #{messageCreationTime})
+    </insert>
+
+</mapper>

@@ -38,6 +38,7 @@ public class ArticleController {
 
     @PostMapping("/article/{articleId}/like")
     public int articleLikeById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer articleId) {
-        return articleService.articleLikeById(request, response,articleId);
+        return articleService.articleLikeById(request, response, articleId);
     }
+
 }
