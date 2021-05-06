@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -77,6 +76,13 @@ public class ArticleServiceImpl implements ArticleService {
             response.addCookie(new Cookie("isLike", "0"));
             return articleMapper.findArticle(articleId).getArticleLikeCount();
         }
+    }
+
+    @Override
+    public int updateCommentCount(Integer articleId) {
+        int articleCommentCount = articleMapper.findCommentCountByArticleId(articleId);
+        articleMapper.updateCommentCount(articleId, articleCommentCount);
+        return articleCommentCount;
     }
 
 }

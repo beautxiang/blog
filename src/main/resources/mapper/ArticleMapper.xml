@@ -77,4 +77,14 @@
         where
             article_id = #{articleId,jdbcType=INTEGER}
     </update>
+
+    <update id="updateCommentCount">
+        update article
+        set article_comment_count = #{articleCommentCount}
+        where article_id = #{articleId}
+    </update>
+
+    <select id="findCommentCountByArticleId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(*) from comment where article_id = #{articleId}
+    </select>
 </mapper>
