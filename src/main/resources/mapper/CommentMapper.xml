@@ -12,19 +12,51 @@
         <result column="comment_creation_time" property="commentCreationTime" />
     </resultMap>
 
+    <resultMap id="ArticleResultMap" type="com.zhangxiang.model.Article">
+        <id column="article_id"  property="articleId" />
+        <result column="article_title"  property="articleTitle" />
+    </resultMap>
+
+    <resultMap id="CommentResultExtend" type="com.zhangxiang.model.Comment">
+        <id column="comment_id" property="commentId" />
+        <result column="comment_pid" property="commentPid" />
+        <result column="article_id" property="articleId" />
+        <result column="comment_person_name" property="commentPersonName" />
+        <result column="comment_person_email" property="commentPersonEmail" />
+        <result column="comment_content" property="commentContent" />
+        <result column="respond_user" property="respondUser" />
+        <result column="comment_creation_time" property="commentCreationTime" />
+        <association property="article" resultMap="ArticleResultMap" column="article_id" javaType="com.zhangxiang.model.Article"/>
+    </resultMap>
+
+
+
     <insert id="commentArticleById" parameterType="com.zhangxiang.model.Comment" useGeneratedKeys="true"
             keyProperty="commentId">
-        insert into comment (article_id, comment_person_name, comment_person_email, comment_content,
+        insert into comment (article_id,
+                             comment_person_name,
+                             comment_person_email,
+                             comment_content,
                              comment_creation_time)
         values (#{articleId}, #{commentPersonName}, #{commentPersonEmail}, #{commentContent}, #{commentCreationTime});
     </insert>
 
     <insert id="commentCommentById" parameterType="com.zhangxiang.model.Comment" useGeneratedKeys="true"
             keyProperty="commentId">
-        insert into comment (comment_pid, article_id, comment_person_name, comment_person_email, comment_content,
-                             respond_user, comment_creation_time)
-        values (#{commentPid}, #{articleId}, #{commentPersonName}, #{commentPersonEmail}, #{commentContent},
-                #{respondUser}, #{commentCreationTime});
+        insert into comment (comment_pid,
+                             article_id,
+                             comment_person_name,
+                             comment_person_email,
+                             comment_content,
+                             respond_user,
+                             comment_creation_time)
+        values (#{commentPid},
+                #{articleId},
+                #{commentPersonName},
+                #{commentPersonEmail},
+                #{commentContent},
+                #{respondUser},
+                #{commentCreationTime})
     </insert>
 
     <select id="selectCommentByArticleId" parameterType="java.lang.Integer" resultMap="CommentResultMap">
@@ -32,5 +64,17 @@
         from comment
         where article_id = #{articleId}
     </select>
+
+    <select id="selectComments" resultMap="CommentResultExtend">
+        select *
+        from comment c
+                 join article a on c.article_id = a.article_id;
+    </select>
+
+    <delete id="deleteCommentById" parameterType="java.lang.Integer">
+        delete
+        from comment
+        where comment_id = #{commentId}
+    </delete>
 
 </mapper>

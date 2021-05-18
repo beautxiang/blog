@@ -20,6 +20,8 @@ public class Comment {
 
     private Date commentCreationTime;
 
+    private Article article;
+
     public Comment() {
     }
 
@@ -39,6 +41,14 @@ public class Comment {
         this.commentContent = commentContent;
         this.respondUser = respondUser;
         this.commentCreationTime = commentCreationTime;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public Integer getCommentId() {

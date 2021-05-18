@@ -18,8 +18,15 @@
 
     <insert id="addMessage" parameterType="com.zhangxiang.model.Message" useGeneratedKeys="true"
             keyProperty="messageId">
-        insert into message (message_user_name, message_user_email, message_content, message_creation_time)
-        values (#{messageUserName}, #{messageUserEmail}, #{messageContent}, #{messageCreationTime})
+        insert into
+            message (message_user_name,
+                     message_user_email,
+                     message_content,
+                     message_creation_time)
+        values (#{messageUserName},
+                #{messageUserEmail},
+                #{messageContent},
+                #{messageCreationTime})
     </insert>
 
 </mapper>

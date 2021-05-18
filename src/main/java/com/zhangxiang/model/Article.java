@@ -27,6 +27,26 @@ public class Article {
 
     private Category category;
 
+    public Article() {
+    }
+
+    public Article(String articleTitle, String articleContent, Integer articleStatus, Date articleCreationTime, Integer categoryId, Integer adminId) {
+        this.articleTitle = articleTitle;
+        this.articleContent = articleContent;
+        this.articleStatus = articleStatus;
+        this.articleCreationTime = articleCreationTime;
+        this.categoryId = categoryId;
+        this.adminId = adminId;
+    }
+
+    public Article(Integer articleId, String articleTitle, String articleContent, Integer articleStatus, Integer categoryId) {
+        this.articleId = articleId;
+        this.articleTitle = articleTitle;
+        this.articleContent = articleContent;
+        this.articleStatus = articleStatus;
+        this.categoryId = categoryId;
+    }
+
     public Category getCategory() {
         return category;
     }

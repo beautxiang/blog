@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -83,6 +85,70 @@ public class ArticleServiceImpl implements ArticleService {
         int articleCommentCount = articleMapper.findCommentCountByArticleId(articleId);
         articleMapper.updateCommentCount(articleId, articleCommentCount);
         return articleCommentCount;
+    }
+
+    @Override
+    public int addArticle(HttpServletRequest request) {
+        String articleTitle = request.getParameter("articleTitle");
+        String articleContent = request.getParameter("articleContent");
+        Integer articleStatus = Integer.valueOf(request.getParameter("articleStatus"));
+        Integer categoryId = Integer.valueOf(request.getParameter("categoryId"));
+        Integer adminId = Integer.valueOf(request.getParameter("adminId"));
+        Date articleCreationTime = new Date();
+        Article article = new Article(articleTitle, articleContent, articleStatus, articleCreationTime, categoryId, adminId);
+        System.out.println(article);
+        return articleMapper.addArticle(article);
+    }
+
+    @Override
+    public int deleteArticle(Integer articleId) {
+        Article article = articleMapper.findArticle(articleId);
+        if (article.getArticleStatus() == 1) {
+            return articleMapper.deleteArticle(articleId);
+        } else  {
+            return articleMapper.deleteArticleTrue(articleId);
+        }
+    }
+
+    @Override
+    public List<Article> selectAllTrueArticles() {
+        return articleMapper.selectAllTrueArticles();
+    }
+
+    @Override
+    public int recoverArticle(Integer articleId) {
+        return articleMapper.recoverArticle(articleId);
+    }
+
+    @Override
+    public int deleteArticles(String[] articles) {
+        int count = 0;
+        for (String article : articles) {
+            articleMapper.deleteArticle(Integer.valueOf(article));
+            count++;
+        }
+        return count;
+    }
+
+    @Override
+    public Article findArticleById(String articleId) {
+        return articleMapper.findArticleById(Integer.valueOf(articleId));
+    }
+
+    @Override
+    public int updateArticleById(HttpServletRequest request, Integer articleId) {
+        String articleTitle = request.getParameter("articleTitle");
+        String articleContent = request.getParameter("articleContent");
+        Integer articleStatus = Integer.valueOf(request.getParameter("articleStatus"));
+        Integer categoryId = Integer.valueOf(request.getParameter("categoryId"));
+        Integer adminId = Integer.valueOf(request.getParameter("adminId"));
+        Article article = new Article(articleId, articleTitle, articleContent, articleStatus, categoryId);
+        return articleMapper.updateArticleById(article);
+    }
+
+    @Override
+    public List<Article> searchArticle(Map<String, Object> map) {
+        return articleMapper.searchArticle(map);
     }
 
 }

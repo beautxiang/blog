@@ -1,5 +1,6 @@
 package com.zhangxiang.service;
 
+import com.zhangxiang.model.Category;
 import com.zhangxiang.model.Comment;
 import org.springframework.stereotype.Service;
 
@@ -12,4 +13,8 @@ public interface CommentService {
     int commentCommentById(Integer articleId, String commentPersonName, String commentPersonEmail, String commentContent, Integer commentPid, String respondUser);
 
     List<Comment> selectCommentByArticleId(Integer articleId);
+
+    List<Comment> selectComments();
+
+    int deleteCommentById(Integer commentId);
 }

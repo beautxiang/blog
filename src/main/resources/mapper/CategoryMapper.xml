@@ -9,6 +9,7 @@
         <result column="category_photo" jdbcType="VARCHAR" property="categoryPhoto" />
     </resultMap>
 
+
     <select id="findCategoryById" resultMap="CategoryResultMap" parameterType="java.lang.Integer">
         select *
         from category
@@ -21,4 +22,27 @@
         from category;
     </select>
 
+    <delete id="deleteCategoryById" parameterType="java.lang.Integer">
+        delete
+        from category
+        where category_id = #{categoryId}
+    </delete>
+
+    <insert id="addCategory" parameterType="com.zhangxiang.model.Category" useGeneratedKeys="true" keyProperty="categoryId">
+        insert into category (category_name, category_photo)
+        values (#{categoryName}, #{categoryPhoto});
+    </insert>
+
+    <update id="updateNamePhotoCategoryById" parameterType="com.zhangxiang.model.Category">
+        update category
+        set category_name  = #{categoryName},
+            category_photo = #{categoryPhoto}
+        where category_id = #{categoryId}
+    </update>
+
+    <update id="updateNameCategoryById" parameterType="com.zhangxiang.model.Category">
+        update category
+        set category_name = #{categoryName}
+        where category_id = #{categoryId}
+    </update>
 </mapper>

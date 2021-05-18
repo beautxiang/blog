@@ -7,6 +7,25 @@ public class Category {
 
     private String categoryPhoto;
 
+    public Category() {
+    }
+
+    public Category(String categoryName, String categoryPhoto) {
+        this.categoryName = categoryName;
+        this.categoryPhoto = categoryPhoto;
+    }
+
+    public Category(Integer categoryId, String categoryName, String categoryPhoto) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.categoryPhoto = categoryPhoto;
+    }
+
+    public Category(Integer categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }

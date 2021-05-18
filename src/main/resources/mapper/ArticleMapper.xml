@@ -46,7 +46,6 @@
 
     <select id="findArticle" resultMap="ArticleResultMapExtend" parameterType="java.lang.Integer">
         SELECT * FROM article a JOIN category c on a.category_id = c.category_id where article_id = #{articleId}
-
     </select>
 
     <select id="selectAllArticlesByCategory" resultMap="ArticleResultMap" parameterType="java.lang.Integer">
@@ -87,4 +86,84 @@
     <select id="findCommentCountByArticleId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         select count(*) from comment where article_id = #{articleId}
     </select>
+    
+    <insert id="addArticle" parameterType="com.zhangxiang.model.Article" useGeneratedKeys="true"
+            keyProperty="articleId">
+        insert into article (article_title,
+                             article_content,
+                             article_status,
+                             article_creation_time,
+                             category_id,
+                             admin_id)
+        values (#{articleTitle},
+                #{articleContent},
+                #{articleStatus},
+                #{articleCreationTime},
+                #{categoryId},
+                #{adminId});
+    </insert>
+
+    <update id="deleteArticle" parameterType="java.lang.Integer">
+        update article
+        set article_status = 0
+        where article_id = #{articleId}
+    </update>
+
+    <select id="selectAllTrueArticles" resultMap="ArticleResultMap">
+        select *
+        from article
+        where article_status = 1;
+    </select>
+
+    <update id="recoverArticle" parameterType="java.lang.Integer">
+        update article
+        set article_status = 1
+        where article_id = #{articleId}
+    </update>
+
+    <delete id="deleteArticleTrue" parameterType="java.lang.Integer">
+        delete
+        from article
+        where article_id = #{articleId}
+    </delete>
+
+    <update id="updateCategoriesToZero" parameterType="java.lang.Integer">
+        update article
+        set category_id = 0
+        where category_id = #{categoryId};
+    </update>
+
+    <select id="findArticleById" parameterType="java.lang.Integer" resultMap="ArticleResultMap">
+        select *
+        from article
+        where article_id = #{articleId}
+    </select>
+
+    <update id="updateArticleById" parameterType="com.zhangxiang.model.Article">
+        update article
+        set
+            article_title   = #{articleTitle},
+            article_content = #{articleContent},
+            article_status  = #{articleStatus},
+            category_id     = #{categoryId}
+        where article_id = #{articleId};
+
+    </update>
+
+    <select id="searchArticle" parameterType="com.zhangxiang.model.Article" resultMap="ArticleResultMap">
+        select *
+        from article
+        where
+        article_title like concat('%', #{articleTitle}, '%') and article_content like concat('%', #{articleContent},'%')
+        <if test="categoryId != null">
+            and category_id = #{categoryId}
+        </if>
+        <if test="articleCreationTimeBegin != null and articleCreationTimeOver != null">
+            and article_creation_time between #{articleCreationTimeBegin} and #{articleCreationTimeOver}
+        </if>
+        <if test="articleStatus != null">
+            and article_status = #{articleStatus}
+        </if>
+    </select>
+
 </mapper>

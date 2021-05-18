@@ -17,12 +17,17 @@ public class ArticleController {
 
     @GetMapping("/article/list")
     public List<Article> returnAllArticles() {
-        return articleService.selectAllArticles();
+        return articleService.selectAllTrueArticles();
     }
 
     @GetMapping("/article/{articleId}")
     public Article returnArticleDetail(@PathVariable("articleId") Integer articleId) {
-        return articleService.findArticle(articleId);
+        Article article = articleService.findArticle(articleId);
+        if (article.getArticleStatus() == 0) {
+            return null;
+        } else {
+            return article;
+        }
     }
 
     @GetMapping("/articleCategory/{categoryId}")
@@ -30,10 +35,15 @@ public class ArticleController {
         return articleService.selectAllArticlesByCategory(categoryId);
     }
 
-    @GetMapping("、article/search")
+    @GetMapping("/article/search")
     public List<Article> searchArticleByTitleOrContent(@RequestParam(name = "titleKeywords", required = false) String titleKeywords,
                                                        @RequestParam(name = "contentKeywords", required = false) String contentKeywords) {
-        return articleService.findArticleByTitleOrContent(titleKeywords, contentKeywords);
+        List<Article> articleByTitleOrContent = articleService.findArticleByTitleOrContent(titleKeywords, contentKeywords);
+        if (articleByTitleOrContent.get(0) == null || articleByTitleOrContent.get(0).getArticleStatus() == 0) {
+            return null;
+        } else {
+            return articleByTitleOrContent;
+        }
     }
 
     @PostMapping("/article/{articleId}/like")

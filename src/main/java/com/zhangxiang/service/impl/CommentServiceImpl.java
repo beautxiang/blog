@@ -1,6 +1,7 @@
 package com.zhangxiang.service.impl;
 
 import com.zhangxiang.mapper.CommentMapper;
+import com.zhangxiang.model.Category;
 import com.zhangxiang.model.Comment;
 import com.zhangxiang.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,16 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> selectCommentByArticleId(Integer articleId) {
         List<Comment> comments = commentMapper.selectCommentByArticleId(articleId);
         return comments;
+    }
+
+    @Override
+    public List<Comment> selectComments() {
+        return commentMapper.selectComments();
+    }
+
+    @Override
+    public int deleteCommentById(Integer commentId) {
+        return commentMapper.deleteCommentById(commentId);
     }
 
 }
