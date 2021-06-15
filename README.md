@@ -16,11 +16,6 @@ https://docs.apipost.cn/preview/63d234f53e86106e/27637d1f1f13caf4
 ### 项目截图
 
 #### 前台
-##### 登录界面
-
-不进行登录无法访问接口，项目未上线，故无实例演示。  
-
-![image](https://user-images.githubusercontent.com/81078596/122002532-712dda00-cde4-11eb-8a17-b6776c370628.png)
 
 ##### 首页
 
